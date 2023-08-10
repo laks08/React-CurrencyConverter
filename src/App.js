@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import CurrencyRow from "./CurrencyRow";
-import { Card, CardBody, ChakraProvider } from "@chakra-ui/react";
+import { Button, Card, CardBody, ChakraProvider } from "@chakra-ui/react";
 
 const BASE_URL =
   "http://api.freecurrencyapi.com/v1/latest?apikey=fca_live_go1wA1gFAsTAg9m6GhrAT6yTGAHFOEKa3wnCdOs4";
@@ -40,8 +40,6 @@ function App() {
 
   useEffect(() => {
     if (fromCurrency != null && toCurrency != null) {
-      console.log(fromCurrency);
-      console.log(toCurrency);
       fetch(
         `${BASE_URL}&currencies=${toCurrency}&base_currency=${fromCurrency}`
       )
@@ -60,12 +58,18 @@ function App() {
     setAmountInFromCurrency(false);
   }
 
+  function handleSwap() {
+    const tempCurrency = fromCurrency;
+    setFromCurrency(toCurrency);
+    setToCurrency(tempCurrency);
+  }
+
   return (
     <ChakraProvider>
-      <div className="flex h-screen justify-center items-center bg-zinc-300">
-        <Card className="m-5 flex p-2">
-          <CardBody>
-            <h1 className="mb-8 flex justify-center title-font text-4xl font-medium font-light font- text-gray-900 mb-3">
+      <div className="flex h-screen justify-center items-center bg-[#bfdce3]">
+        <Card>
+          <CardBody className="bg-[#fbbba8] rounded" boxShadow="2xl">
+            <h1 className="flex justify-center title-font text-4xl font-sans font-light text-black mb-3">
               Currency Converter
             </h1>
             <div className="flex jusitify-start text-lg font-mono mt-5 mb-1">
@@ -78,6 +82,15 @@ function App() {
               onChangeAmount={handleFromAmountChange}
               amount={fromAmount}
             />
+            <div className="flex justify-center mb-[-10px] mt-6">
+              <button
+                type="button"
+                className="bg-black text-white rounded px-2 py-1 shadow-lg"
+                onClick={handleSwap}
+              >
+                Switch
+              </button>
+            </div>
             <div className="flex justify-start text-lg font-mono mt-5 mb-1">
               To
             </div>

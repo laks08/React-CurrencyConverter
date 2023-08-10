@@ -52,6 +52,7 @@ function CurrencyRow(props) {
         size="md"
         value={selectedCurrency}
         onChange={onChangeCurrency}
+        style={{ border: "1px solid black" }}
       >
         {currencyOptions.map((option) => (
           <option key={option} value={option}>
@@ -62,9 +63,9 @@ function CurrencyRow(props) {
       </Select>
       <Input
         type="number"
-        className="input"
         value={amount}
         onChange={onChangeAmount}
+        style={{ border: "1px solid black" }}
       />
     </div>
   );
