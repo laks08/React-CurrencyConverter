@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import CurrencyRow from "./CurrencyRow";
+import { Card, CardBody, ChakraProvider } from "@chakra-ui/react";
 
 const BASE_URL =
   "http://api.freecurrencyapi.com/v1/latest?apikey=fca_live_go1wA1gFAsTAg9m6GhrAT6yTGAHFOEKa3wnCdOs4";
@@ -60,24 +61,37 @@ function App() {
   }
 
   return (
-    <>
-      <h1>Convert</h1>
-      <CurrencyRow
-        currencyOptions={currencyOptions}
-        selectedCurrency={fromCurrency}
-        onChangeCurrency={(e) => setFromCurrency(e.target.value)}
-        onChangeAmount={handleFromAmountChange}
-        amount={fromAmount}
-      />
-      <div className="equals">=</div>
-      <CurrencyRow
-        currencyOptions={currencyOptions}
-        selectedCurrency={toCurrency}
-        onChangeCurrency={(e) => setToCurrency(e.target.value)}
-        onChangeAmount={handleToAmountChange}
-        amount={toAmount}
-      />
-    </>
+    <ChakraProvider>
+      <div className="flex h-screen justify-center items-center bg-zinc-300">
+        <Card className="m-5 flex p-2">
+          <CardBody>
+            <h1 className="mb-8 flex justify-center title-font text-4xl font-medium font-light font- text-gray-900 mb-3">
+              Currency Converter
+            </h1>
+            <div className="flex jusitify-start text-lg font-mono mt-5 mb-1">
+              From
+            </div>
+            <CurrencyRow
+              currencyOptions={currencyOptions}
+              selectedCurrency={fromCurrency}
+              onChangeCurrency={(e) => setFromCurrency(e.target.value)}
+              onChangeAmount={handleFromAmountChange}
+              amount={fromAmount}
+            />
+            <div className="flex justify-start text-lg font-mono mt-5 mb-1">
+              To
+            </div>
+            <CurrencyRow
+              currencyOptions={currencyOptions}
+              selectedCurrency={toCurrency}
+              onChangeCurrency={(e) => setToCurrency(e.target.value)}
+              onChangeAmount={handleToAmountChange}
+              amount={toAmount}
+            />
+          </CardBody>
+        </Card>
+      </div>
+    </ChakraProvider>
   );
 }
 
